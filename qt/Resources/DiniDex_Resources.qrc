@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="Images">
+    <file>pokedex_background_mirror.png</file>
+    <file>pokedex_background.png</file>
+    <file>1.png</file>
+    <file>pokemon_background800x600.png</file>
+  </qresource>
+</RCC>
