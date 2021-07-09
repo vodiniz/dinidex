@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DiniDex</class>
+ <widget class="QMainWindow" name="DiniDex">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>919</width>
+    <height>221</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dinidex - A simple Pokedex</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Resources/icone_programa.ico</normaloff>Resources/icone_programa.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="pokemon_logo" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-40</y>
+      <width>300</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/Images/pokemon_logo.png);
+background:transparent;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="background" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>941</width>
+      <height>871</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(206, 76, 62);
+
+</string>
+    </property>
+    <widget class="QLineEdit" name="search_bar">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>130</y>
+       <width>651</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(68, 68, 68);
+background-color: rgb(255, 255, 255);
+border-radius: 8px;</string>
+     </property>
+     <property name="text">
+      <string>Digite o nome ou o número correspondente ao POKEDEX do pokemon.</string>
+     </property>
+    </widget>
+   </widget>
+   <zorder>background</zorder>
+   <zorder>pokemon_logo</zorder>
+  </widget>
+ </widget>
+ <resources>
+  <include location="Resources/DiniDex_Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

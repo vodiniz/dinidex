@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="Images">
+    <file>icone_programa.ico</file>
     <file>228.png</file>
     <file>2.png</file>
     <file>3.png</file>

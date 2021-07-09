@@ -13,12 +13,15 @@ class Ui_DiniDex(object):
     def setupUi(self, DiniDex):
         DiniDex.setObjectName("DiniDex")
         DiniDex.resize(899, 862)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("resources/icon/program_icon.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        DiniDex.setWindowIcon(icon)
         DiniDex.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.centralwidget = QtWidgets.QWidget(DiniDex)
         self.centralwidget.setObjectName("centralwidget")
         self.pokemon_logo = QtWidgets.QWidget(self.centralwidget)
         self.pokemon_logo.setGeometry(QtCore.QRect(0, -40, 300, 200))
-        self.pokemon_logo.setStyleSheet("image: url(:/Images/pokemon_logo.png);\n"
+        self.pokemon_logo.setStyleSheet("image: url(resources/logo/pokemon_logo.png);\n"
 "background:transparent;")
         self.pokemon_logo.setObjectName("pokemon_logo")
         self.background = QtWidgets.QWidget(self.centralwidget)
@@ -38,7 +41,7 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.evo1_type1.setFont(font)
-        self.evo1_type1.setStyleSheet("image: url(:/TypeLabel/label_type/grass_type_label.png);\n"
+        self.evo1_type1.setStyleSheet("image: url(resources/pokemon_type_icon/grass_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL DO TIPO DO POKEMON
 "background-color: transparent;")
         self.evo1_type1.setText("")
         self.evo1_type1.setObjectName("evo1_type1")
@@ -47,45 +50,32 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.evo1_type2.setFont(font)
-        self.evo1_type2.setStyleSheet("image: url(:/TypeLabel/label_type/poison_type_label.png);\n"
+        self.evo1_type2.setStyleSheet("image: url(resources/pokemon_type_icon/poison_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL DO TIPO DO POKEMON
 "background-color: transparent;")
         self.evo1_type2.setText("")
         self.evo1_type2.setObjectName("evo1_type2")
-        self.arrow_evo_2_3 = QtWidgets.QLabel(self.evolution_line_widget)
-        self.arrow_evo_2_3.setGeometry(QtCore.QRect(245, 155, 41, 21))
-        self.arrow_evo_2_3.setStyleSheet("image: url(:/Arrow/right_arrow4.png);\n"
-"background-color: transparent;")
-        self.arrow_evo_2_3.setText("")
-        self.arrow_evo_2_3.setObjectName("arrow_evo_2_3")
         self.evo_detail_1_2 = QtWidgets.QLabel(self.evolution_line_widget)
         self.evo_detail_1_2.setGeometry(QtCore.QRect(170, 150, 51, 20))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.evo_detail_1_2.setFont(font)
         self.evo_detail_1_2.setObjectName("evo_detail_1_2")
-        self.evo_type2_3 = QtWidgets.QLabel(self.evolution_line_widget)
-        self.evo_type2_3.setGeometry(QtCore.QRect(245, 140, 41, 16))
-        font = QtGui.QFont()
-        font.setPointSize(8)
-        self.evo_type2_3.setFont(font)
-        self.evo_type2_3.setObjectName("evo_type2_3")
         self.evolution1_sprite = QtWidgets.QLabel(self.evolution_line_widget)
         self.evolution1_sprite.setGeometry(QtCore.QRect(10, 100, 140, 140))
-        self.evolution1_sprite.setStyleSheet("image: url(:/Images/1.png);\n"
-"background:transparent;\n"
+        self.evolution1_sprite.setStyleSheet("image: url(resources/sprites/1.png);\n" #MUDAR AQUI PARA UMA VARIAVEL DA SPRITE COM NUMERO DA DEX.
 "")
         self.evolution1_sprite.setText("")
         self.evolution1_sprite.setObjectName("evolution1_sprite")
         self.evolution2_sprite = QtWidgets.QLabel(self.evolution_line_widget)
         self.evolution2_sprite.setGeometry(QtCore.QRect(230, 100, 140, 140))
-        self.evolution2_sprite.setStyleSheet("image: url(:/Images/2.png);\n"
+        self.evolution2_sprite.setStyleSheet("image: url(resources/sprites/2.png);\n" #MUDAR AQUI PARA UMA VARIAVEL DA SPRITE COM NUMERO DA DEX.
 "background:transparent;\n"
 "")
         self.evolution2_sprite.setText("")
         self.evolution2_sprite.setObjectName("evolution2_sprite")
         self.evolution3_sprite = QtWidgets.QLabel(self.evolution_line_widget)
         self.evolution3_sprite.setGeometry(QtCore.QRect(460, 100, 140, 140))
-        self.evolution3_sprite.setStyleSheet("image: url(:/Images/3.png);\n"
+        self.evolution3_sprite.setStyleSheet("image: url(resources/sprites/3.png);\n"
 "background:transparent;\n"
 "")
         self.evolution3_sprite.setText("")
@@ -95,7 +85,7 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.evo2_type2_2.setFont(font)
-        self.evo2_type2_2.setStyleSheet("image: url(:/TypeLabel/label_type/grass_type_label.png);\n"
+        self.evo2_type2_2.setStyleSheet("image: url(resources/pokemon_type_icon/grass_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL COM O TYPE1_TYPE 
 "background-color: transparent;")
         self.evo2_type2_2.setText("")
         self.evo2_type2_2.setObjectName("evo2_type2_2")
@@ -104,7 +94,7 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.evo2_type2.setFont(font)
-        self.evo2_type2.setStyleSheet("image: url(:/TypeLabel/label_type/poison_type_label.png);\n"
+        self.evo2_type2.setStyleSheet("image: url(resources/pokemon_type_icon/poison_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL COM O TYPE1_TYPE DO POKEMON
 "background-color: transparent;")
         self.evo2_type2.setText("")
         self.evo2_type2.setObjectName("evo2_type2")
@@ -113,7 +103,7 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.evo3_type1.setFont(font)
-        self.evo3_type1.setStyleSheet("image: url(:/TypeLabel/label_type/grass_type_label.png);\n"
+        self.evo3_type1.setStyleSheet("image: url(resources/pokemon_type_icon/grass_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL COM O TYPE1_TYPE  DO POKEMON
 "background-color: transparent;")
         self.evo3_type1.setText("")
         self.evo3_type1.setObjectName("evo3_type1")
@@ -122,13 +112,13 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.evo3_type2.setFont(font)
-        self.evo3_type2.setStyleSheet("image: url(:/TypeLabel/label_type/poison_type_label.png);\n"
+        self.evo3_type2.setStyleSheet("image: url(resources/pokemon_type_icon/poison_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL COM O TYPE1_TYPE  DO POKEMON
 "background-color: transparent;")
         self.evo3_type2.setText("")
         self.evo3_type2.setObjectName("evo3_type2")
         self.arrow_evo_2_4 = QtWidgets.QLabel(self.evolution_line_widget)
         self.arrow_evo_2_4.setGeometry(QtCore.QRect(390, 170, 51, 31))
-        self.arrow_evo_2_4.setStyleSheet("image: url(:/Arrow/right_arrow3.png);\n"
+        self.arrow_evo_2_4.setStyleSheet("image: url(resources/arrow/default_right_arrow.png);\n"
 "background-color: transparent;")
         self.arrow_evo_2_4.setText("")
         self.arrow_evo_2_4.setObjectName("arrow_evo_2_4")
@@ -140,7 +130,7 @@ class Ui_DiniDex(object):
         self.evo_detail_2_3.setObjectName("evo_detail_2_3")
         self.arrow_evo_1_2 = QtWidgets.QLabel(self.evolution_line_widget)
         self.arrow_evo_1_2.setGeometry(QtCore.QRect(170, 170, 51, 31))
-        self.arrow_evo_1_2.setStyleSheet("image: url(:/Arrow/right_arrow3.png);\n"
+        self.arrow_evo_1_2.setStyleSheet("image: url(resources/arrow/default_right_arrow.png);\n"
 "background-color: transparent;")
         self.arrow_evo_1_2.setText("")
         self.arrow_evo_1_2.setObjectName("arrow_evo_1_2")
@@ -148,9 +138,7 @@ class Ui_DiniDex(object):
         self.evolution1_sprite.raise_()
         self.evo1_type1.raise_()
         self.evo1_type2.raise_()
-        self.arrow_evo_2_3.raise_()
         self.evo_detail_1_2.raise_()
-        self.evo_type2_3.raise_()
         self.evolution2_sprite.raise_()
         self.evo2_type2_2.raise_()
         self.evo2_type2.raise_()
@@ -164,22 +152,22 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.label_type1.setFont(font)
-        self.label_type1.setStyleSheet("image: url(:/TypeLabel/label_type/grass_type_label.png);\n"
+        self.label_type1.setStyleSheet("image: url(resources/pokemon_type_icon/grass_type.png);\n"
 "background-color: transparent;")
         self.label_type1.setText("")
-        self.label_type1.setObjectName("label_type1")
+        self.label_type1.setObjectName("pokemon_type1")
         self.label_type2 = QtWidgets.QLabel(self.background)
         self.label_type2.setGeometry(QtCore.QRect(120, 440, 115, 31))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.label_type2.setFont(font)
-        self.label_type2.setStyleSheet("image: url(:/TypeLabel/label_type/poison_type_label.png);\n"
+        self.label_type2.setStyleSheet("image: url(resources/pokemon_type_icon/poison_type.png);\n"
 "background-color: transparent;")
         self.label_type2.setText("")
-        self.label_type2.setObjectName("label_type2")
+        self.label_type2.setObjectName("pokemon_type2")
         self.sprite_pokemon = QtWidgets.QWidget(self.background)
         self.sprite_pokemon.setGeometry(QtCore.QRect(20, 170, 221, 221))
-        self.sprite_pokemon.setStyleSheet("image: url(:/Images/1.png);\n"
+        self.sprite_pokemon.setStyleSheet("image: url(resources/sprites/1.png);\n"
 "background:transparent;\n"
 "")
         self.sprite_pokemon.setObjectName("sprite_pokemon")
@@ -515,9 +503,8 @@ class Ui_DiniDex(object):
 
     def retranslateUi(self, DiniDex):
         _translate = QtCore.QCoreApplication.translate
-        DiniDex.setWindowTitle(_translate("DiniDex", "MainWindow"))
+        DiniDex.setWindowTitle(_translate("DiniDex", "Dinidex - A simple Pokedex"))
         self.evo_detail_1_2.setText(_translate("DiniDex", "Level 16"))
-        self.evo_type2_3.setText(_translate("DiniDex", "Level 32"))
         self.evo_detail_2_3.setText(_translate("DiniDex", "Level 32"))
         self.label_hp.setText(_translate("DiniDex", "Hp"))
         self.label_attack.setText(_translate("DiniDex", "Attack"))
