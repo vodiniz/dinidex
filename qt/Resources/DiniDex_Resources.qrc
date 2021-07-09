@@ -1,8 +1,47 @@
 <RCC>
   <qresource prefix="Images">
-    <file>pokedex_background_mirror.png</file>
-    <file>pokedex_background.png</file>
+    <file>228.png</file>
+    <file>2.png</file>
+    <file>3.png</file>
+    <file>NicePng_arrow-mark-png_195228.png</file>
     <file>1.png</file>
-    <file>pokemon_background800x600.png</file>
+    <file>pokemon_logo.png</file>
+  </qresource>
+  <qresource prefix="Oddish_line">
+    <file>43.png</file>
+    <file>44.png</file>
+    <file>45.png</file>
+    <file>182.png</file>
+  </qresource>
+  <qresource prefix="Arrow">
+    <file>mini_arrow_diagonal.png</file>
+    <file>mini_arrow_diagonal-.png</file>
+    <file>arrow_diagonal-30.png</file>
+    <file>arrow_diagonal+30.png</file>
+    <file>arrow_diagonal-30.png</file>
+    <file>right_arrow70px.png</file>
+    <file>double_arrow.png</file>
+    <file>right_arrow4.png</file>
+    <file>right_arrow3.png</file>
+    <file>right_arrow2.png</file>
+    <file>right_arrow.png</file>
+  </qresource>
+  <qresource prefix="TypeLabel">
+    <file>label_type/bug_type_label.png</file>
+    <file>label_type/dark_type_label.png</file>
+    <file>label_type/dragon_type_label.png</file>
+    <file>label_type/electric_type_label.png</file>
+    <file>label_type/fairy_type_label.png</file>
+    <file>label_type/fighting_type_label.png</file>
+    <file>label_type/fire_type_label.png</file>
+    <file>label_type/ghost_type_label.png</file>
+    <file>label_type/grass_type_label.png</file>
+    <file>label_type/ice_type_label.png</file>
+    <file>label_type/normal_type_label.png</file>
+    <file>label_type/poison_type_label.png</file>
+    <file>label_type/psychic_type_label.png</file>
+    <file>label_type/rock_type_label.png</file>
+    <file>label_type/steel_type_label.png</file>
+    <file>label_type/water_type_label.png</file>
   </qresource>
 </RCC>
