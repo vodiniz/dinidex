@@ -18,7 +18,6 @@ def get_evolution_json(pokemon):
 
     species_details = (pokemon_json['species'])
     name, evolution_url = species_details['name'], species_details['url']
-    print('{} evolution line'.format(name))
     species_api = requests.get(evolution_url)
     species_json = json.loads(species_api.text)
     evolution_url = species_json['evolution_chain']['url']
@@ -29,27 +28,10 @@ def get_evolution_json(pokemon):
     evolution_json = json.loads(evolution_page.text)
 
     evolution_chain_type(evolution_json)
+    check_regional_form(pokemon,evolution_json)
+    print('----------')
 
     return evolution_chain_type
-
-def check_regional_form(pokemon, evolution_json):
-    dex = pokemon.dex
-    species_url = 'https://pokeapi.co/api/v2/pokemon-species/{}/'.format(dex)
-    species_page = requests.get(species_url)
-    species_json = json.loads(species_page.text)
-    base_forms = 1
-    evolution1_forms = None
-
-    
-    for element in species_json['varieties']:
-        if (['is_default'] == True):
-            pass
-
-        if (['is_default'] == False ):
-            if ('alola' in element['pokemon']['name']) or ('galar' in  element['pokemon']['name']):
-                base_forms = base_forms + 1
-
-    return
 
 
 def evolution_chain_type(json):
@@ -69,7 +51,12 @@ def evolution_chain_type(json):
         print('{} -> {} -> {}'.format(first_evolution, second_evolution,third_evolution))
 
     except IndexError:
-        print('{} -> {}'.format(first_evolution, second_evolution))
+        if second_evolution == None:
+            pass
+        else:
+
+            print('{} -> {}'.format(first_evolution, second_evolution))
+
 
     if third_evolution != None:
         return first_evolution+second_evolution+third_evolution
@@ -81,11 +68,38 @@ def evolution_chain_type(json):
         return first_evolution 
 
 
+def check_regional_form(pokemon, evolution_json):
+    dex = pokemon.dex
+    species_url = 'https://pokeapi.co/api/v2/pokemon-species/{}/'.format(dex)
+    species_page = requests.get(species_url)
+    species_json = json.loads(species_page.text)
+    base_forms = 1
+    evolution1_forms = None
+
+    
+    for element in species_json['varieties']:
+        if (element['is_default'] == True):
+            pass
+
+        if (element['is_default'] == False ):
+            
+            if ('alola' in element['pokemon']['name']) or ('galar' in  element['pokemon']['name']):
+                base_forms = base_forms + 1
+    print('base forms number',base_forms)
+
+
+    if base_forms > 1:
+        
+
+    return base_forms
+
+
 
 if __name__ == "__main__":
 
-    #get_evolution_json(call_pokemon(115))
-    #get_evolution_json(1)
-    #get_evolution_json(25)
-    check_regional_form(call_pokemon(19))
+    # get_evolution_json(call_pokemon(115))
+    # get_evolution_json(call_pokemon(1))
+    # get_evolution_json(call_pokemon(25))
+    get_evolution_json(call_pokemon(52))
+    #check_regional_form(call_pokemon(19))
 

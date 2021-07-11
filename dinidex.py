@@ -476,12 +476,6 @@ class Ui_DiniDex(object):
         self.level_move1.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.level_move1.setObjectName("level_move1")
         self.scrollmoves.setWidget(self.scrollAreaWidgetContents)
-#         self.search_bar = QtWidgets.QLineEdit(self.background)            ESTUDAR PORQUE ESTA AQUI
-#         self.search_bar.setGeometry(QtCore.QRect(260, 130, 631, 40))
-#         self.search_bar.setStyleSheet("color: rgb(68, 68, 68);\n"
-# "background-color: rgb(255, 255, 255);\n"
-# "border-radius: 8px;")
-#         self.search_bar.setObjectName("search_bar")
         self.scrollmoves.raise_()
         self.pokedex_pokemon.raise_()
         self.stats_widget.raise_()
@@ -491,14 +485,13 @@ class Ui_DiniDex(object):
         self.sprite_pokemon.raise_()
         self.abilities_widget.raise_()
         self.description_widget.raise_()
-        self.search_bar.raise_()
         self.background.raise_()
         self.pokemon_logo.raise_()
         DiniDex.setCentralWidget(self.centralwidget)
 
         QtCore.QMetaObject.connectSlotsByName(DiniDex)
         DiniDex.update()
-        QApplication.processEvents()
+        #QApplication.processEvents()   TEM A VER COM O CONSTRUCTOR, DAR UMA OLHADA
 
     def updatePokemon(self, DiniDex, Pokemon):
         self.retranslateFixedUi(DiniDex, Pokemon)
