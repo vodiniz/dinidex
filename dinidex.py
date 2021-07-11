@@ -6,11 +6,13 @@ import random
 import time
 
 class Ui_DiniDex(object):
+    first_run = 1
+    #DiniDex = ??? Colocar no construtor
     def setupMainWindow(self, DiniDex):
         DiniDex.setObjectName("DiniDex")
         DiniDex.resize(920, 220)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("resources/icon/icone_programa.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("resources/icon/program_icon.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         DiniDex.setWindowIcon(icon)
         DiniDex.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.centralwidget = QtWidgets.QWidget(DiniDex)
@@ -27,7 +29,7 @@ class Ui_DiniDex(object):
 "")
         self.background.setObjectName("background")
         self.search_bar = QtWidgets.QLineEdit(self.background)
-        self.search_bar.returnPressed.connect(self.searchEnter)
+        self.search_bar.returnPressed.connect(self.onPressed)
         self.search_bar.setGeometry(QtCore.QRect(260, 130, 651, 40))
         self.search_bar.setStyleSheet("color: rgb(68, 68, 68);\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -44,7 +46,8 @@ class Ui_DiniDex(object):
     def retranslateMainWindow(self, DiniDex):
         _translate = QtCore.QCoreApplication.translate
         DiniDex.setWindowTitle(_translate("DiniDex", "Dinidex - A simple Pokedex"))
-        self.search_bar.setText(_translate("DiniDex", "Digite o nome ou o número correspondente ao POKEDEX do pokemon."))
+        #self.search_bar.setText(_translate("DiniDex", "Digite o nome ou o número correspondente ao POKEDEX do pokemon."))  \N
+        #CORRIGIR PARA APARECER ESCRITO E SUMIR QUANDO ESTIVER NO FOCO
 
     def setupPokemonUi(self, DiniDex):
         DiniDex.resize(920, 860)
@@ -473,12 +476,12 @@ class Ui_DiniDex(object):
         self.level_move1.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.level_move1.setObjectName("level_move1")
         self.scrollmoves.setWidget(self.scrollAreaWidgetContents)
-        self.search_bar = QtWidgets.QLineEdit(self.background)
-        self.search_bar.setGeometry(QtCore.QRect(260, 130, 631, 40))
-        self.search_bar.setStyleSheet("color: rgb(68, 68, 68);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-radius: 8px;")
-        self.search_bar.setObjectName("search_bar")
+#         self.search_bar = QtWidgets.QLineEdit(self.background)            ESTUDAR PORQUE ESTA AQUI
+#         self.search_bar.setGeometry(QtCore.QRect(260, 130, 631, 40))
+#         self.search_bar.setStyleSheet("color: rgb(68, 68, 68);\n"
+# "background-color: rgb(255, 255, 255);\n"
+# "border-radius: 8px;")
+#         self.search_bar.setObjectName("search_bar")
         self.scrollmoves.raise_()
         self.pokedex_pokemon.raise_()
         self.stats_widget.raise_()
@@ -494,6 +497,8 @@ class Ui_DiniDex(object):
         DiniDex.setCentralWidget(self.centralwidget)
 
         QtCore.QMetaObject.connectSlotsByName(DiniDex)
+        DiniDex.update()
+        QApplication.processEvents()
 
     def updatePokemon(self, DiniDex, Pokemon):
         self.retranslateFixedUi(DiniDex, Pokemon)
@@ -527,20 +532,20 @@ class Ui_DiniDex(object):
         for ability in Pokemon.abilities:
             if (ability.is_hidden != 1):
                 if count == 0:
-                    self.na_ability1.setText(_translate("DiniDex", "{}".format(ability[0])))
+                    self.na_ability1.setText(_translate("DiniDex", "{}".format(ability[0].replace("-"," ").title())))
                 if(count == 1):
-                    self.na_ability2.setText(_translate("DiniDex", "{}".format(ability[0])))
+                    self.na_ability2.setText(_translate("DiniDex", "{}".format(ability[0].replace("-"," ").title())))
                 if(count ==2):
-                    self.na_ability3.setText(_translate("DiniDex", "{}".format(ability[0])))
+                    self.na_ability3.setText(_translate("DiniDex", "{}".format(ability[0].replace("-"," ").title())))
 
             if(ability.is_hidden):
-                self.ha_ability1.setText(_translate("DiniDex", "{}".format(ability[0])))
+                self.ha_ability1.setText(_translate("DiniDex", "{}".format(ability[0].replace("-"," ").title())))
             count = count + 1
 
         self.description_title.setText(_translate("DiniDex", "Description"))
         description = Pokemon.get_descriptions('en')
         self.description_text.setText(_translate("DiniDex", "{}".format(random.choice(list(description.values())))))
-        self.name_pokemon.setText(_translate("DiniDex", "{}".format(Pokemon.name)))
+        self.name_pokemon.setText(_translate("DiniDex", "{}".format(Pokemon.name.title())))
         self.dex_number.setText(_translate("DiniDex", "#{}".format(Pokemon.dex)))
         self.moves_title.setText(_translate("DiniDex", "Moves"))
         self.level_title.setText(_translate("DiniDex", "Level"))
@@ -557,8 +562,9 @@ class Ui_DiniDex(object):
             self.pokemon_type1.setGeometry(QtCore.QRect(5, 440, 115, 30))
             self.pokemon_type1.setStyleSheet("image: url(resources/pokemon_type_icon/{}_type.png);\n"
 "background-color: transparent;".format(Pokemon.types[0]))
+            
             self.pokemon_type2.setStyleSheet("image: url(resources/pokemon_type_icon/{}_type.png);\n"
-"background-color: transparent;")
+"background-color: transparent;".format(Pokemon.types[1]))
 
         else:
             self.pokemon_type1.setGeometry(QtCore.QRect(60, 440, 115, 30))
@@ -611,19 +617,27 @@ class Ui_DiniDex(object):
             return
 
             
-    def searchEnter(self):
+    def onPressed(self):
         pokemon_search = self.search_bar.text()
         print(pokemon_search)
+        if self.first_run:
+            print('Vou dar o setup no pokemon na first run')
+            self.setupPokemonUi(DiniDex)
+            print('Dei o setupPòkemon na first run')
+            self.first_run = 0
         pokemon = self.call_pokemon(pokemon_search)
+        print()
         self.updatePokemon(DiniDex, pokemon)
 
         
         
-    def call_pokemon(input):
+    def call_pokemon(self, input):
         try:
+            print('testando o input',input)
             input = int(input)
+            
             pokemon = pypokedex.get(dex=input)
-        except ValueError:
+        except:
             pokemon = pypokedex.get(name=input)
 
         return pokemon
@@ -670,10 +684,9 @@ if __name__ == "__main__":
     DiniDex = QtWidgets.QMainWindow()
     ui = Ui_DiniDex()
     ui.setupMainWindow(DiniDex)
-   # pokemon = call_pokemon(97)
-    ui.setupPokemonUi(DiniDex)
+    #pokemon = ui.call_pokemon(2)
+    #ui.setupPokemonUi(DiniDex)
     #ui.updatePokemon(DiniDex,pokemon)
     DiniDex.show()
-    #pokemon2 = call_pokemon(456)
 
     sys.exit(app.exec())

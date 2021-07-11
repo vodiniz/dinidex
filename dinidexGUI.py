@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_DiniDex(object):
     def setupUi(self, DiniDex):
         DiniDex.setObjectName("DiniDex")
-        DiniDex.resize(899, 862)
+        DiniDex.resize(920, 860)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("resources/icon/program_icon.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         DiniDex.setWindowIcon(icon)
