@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QApplication
 import pypokedex
 import json
 import requests
@@ -402,6 +403,7 @@ class Ui_DiniDex(object):
         self.description_text.setFont(font)
         self.description_text.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);")
+        self.description_text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.description_text.setWordWrap(True)
         self.description_text.setObjectName("description_text")
         self.pokedex_pokemon = QtWidgets.QWidget(self.background)
@@ -491,15 +493,29 @@ class Ui_DiniDex(object):
 
         QtCore.QMetaObject.connectSlotsByName(DiniDex)
         DiniDex.update()
-        #QApplication.processEvents()   TEM A VER COM O CONSTRUCTOR, DAR UMA OLHADA
+
+
+    def showAll(self):
+        self.centralwidget.show()
+        self.background.show()
+        self.stats_widget.show()
+        self.sprite_pokemon.show()
+        self.pokemon_type2.show()
+        self.pokemon_type1.show()
+        self.description_widget.show()
+        self.abilities_widget.show()
+        self.description_widget.show()
+        self.evolution_line_widget.show()
+        self.pokedex_pokemon.show()
+        self.scrollmoves.show()
+
 
     def updatePokemon(self, DiniDex, Pokemon):
         self.retranslateFixedUi(DiniDex, Pokemon)
         self.setStyleSheetResources(DiniDex, Pokemon)
         self.updateStatsBar(DiniDex, Pokemon)
+        self.showAll()
 
-    
-    
     
     def retranslateFixedUi(self, DiniDex, Pokemon):
         _translate = QtCore.QCoreApplication.translate
@@ -591,7 +607,6 @@ class Ui_DiniDex(object):
         self.arrow_evo_2_3.setStyleSheet("image: url(resources/arrow/default_right_arrow.png);\n"
 "background-color: transparent;")
 
-
     def check_2_types(self, pokemon):
         if len(pokemon.types) > 1:
             return True
@@ -677,9 +692,9 @@ if __name__ == "__main__":
     DiniDex = QtWidgets.QMainWindow()
     ui = Ui_DiniDex()
     ui.setupMainWindow(DiniDex)
-    #pokemon = ui.call_pokemon(2)
-    #ui.setupPokemonUi(DiniDex)
-    #ui.updatePokemon(DiniDex,pokemon)
+    # pokemon = ui.call_pokemon(2)
+    # ui.setupPokemonUi(DiniDex)
+    # ui.updatePokemon(DiniDex,pokemon)
     DiniDex.show()
 
     sys.exit(app.exec())
