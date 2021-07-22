@@ -31,7 +31,7 @@ class Ui_DiniDex(object):
         self.background.setObjectName("background")
         self.search_bar = QtWidgets.QLineEdit(self.background)
         self.search_bar.returnPressed.connect(self.onPressed)
-        self.search_bar.setGeometry(QtCore.QRect(260, 130, 651, 40))
+        self.search_bar.setGeometry(QtCore.QRect(260, 130, 650, 40))
         self.search_bar.setStyleSheet("color: rgb(68, 68, 68);\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 8px;")
@@ -52,7 +52,7 @@ class Ui_DiniDex(object):
 
     def setupPokemonUi(self, DiniDex):
         DiniDex.resize(920, 860)
-        DiniDex.setStyleSheet("background-color: rgb(0, 0, 0);")
+        #DiniDex.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.evolution_line_widget = QtWidgets.QWidget(self.background)
         self.evolution_line_widget.setGeometry(QtCore.QRect(260, 480, 650, 370))
         self.evolution_line_widget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -152,7 +152,7 @@ class Ui_DiniDex(object):
         self.pokemon_type1.setText("")
         self.pokemon_type1.setObjectName("pokemon_type1")
         self.pokemon_type2 = QtWidgets.QLabel(self.background)
-        self.pokemon_type2.setGeometry(QtCore.QRect(120, 440, 115, 30))
+        self.pokemon_type2.setGeometry(QtCore.QRect(140, 440, 115, 30))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.pokemon_type2.setFont(font)
