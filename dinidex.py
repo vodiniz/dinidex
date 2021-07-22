@@ -407,13 +407,13 @@ class Ui_DiniDex(object):
         self.description_text.setWordWrap(True)
         self.description_text.setObjectName("description_text")
         self.pokedex_pokemon = QtWidgets.QWidget(self.background)
-        self.pokedex_pokemon.setGeometry(QtCore.QRect(15, 400, 211, 31))
+        self.pokedex_pokemon.setGeometry(QtCore.QRect(15, 400, 240, 30))
         self.pokedex_pokemon.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);\n"
 "border-radius:10px;")
         self.pokedex_pokemon.setObjectName("pokedex_pokemon")
         self.name_pokemon = QtWidgets.QLabel(self.pokedex_pokemon)
-        self.name_pokemon.setGeometry(QtCore.QRect(50, 0, 160, 31))
+        self.name_pokemon.setGeometry(QtCore.QRect(50, 0, 160, 30))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.name_pokemon.setFont(font)
@@ -432,22 +432,23 @@ class Ui_DiniDex(object):
 "border-radius:10px;")
         self.dex_number.setObjectName("dex_number")
         self.scrollmoves = QtWidgets.QScrollArea(self.background)
-        self.scrollmoves.setGeometry(QtCore.QRect(9, 480, 241, 371))
+        self.scrollmoves.setGeometry(QtCore.QRect(9, 480, 240, 370))
         self.scrollmoves.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius:12px;\n"
 "")
         self.scrollmoves.setWidgetResizable(True)
         self.scrollmoves.setObjectName("scrollmoves")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 241, 371))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 241, 370))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.moves_title = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.moves_title.setGeometry(QtCore.QRect(120, 0, 120, 20))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.moves_title.setFont(font)
-        self.moves_title.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);")
+        self.moves_title.setStyleSheet("background-color: transparent);\n"
+"color: rgb(0, 0, 0);\n"
+"border_radius:3px")
         self.moves_title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.moves_title.setObjectName("moves_title")
         self.move1 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
@@ -465,7 +466,8 @@ class Ui_DiniDex(object):
         font.setPointSize(12)
         self.level_title.setFont(font)
         self.level_title.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);")
+"color: rgb(0, 0, 0);\n"
+"border-radius:6px")
         self.level_title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.level_title.setObjectName("level_title")
         self.level_move1 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
@@ -496,16 +498,7 @@ class Ui_DiniDex(object):
 
 
     def showAll(self):
-        self.centralwidget.show()
-        self.background.show()
-        self.stats_widget.show()
-        self.sprite_pokemon.show()
-        self.pokemon_type2.show()
-        self.pokemon_type1.show()
-        self.description_widget.show()
-        self.abilities_widget.show()
-        self.description_widget.show()
-        self.evolution_line_widget.show()
+
         self.pokedex_pokemon.show()
         self.scrollmoves.show()
 
@@ -561,6 +554,9 @@ class Ui_DiniDex(object):
         self.move1.setText(_translate("DiniDex", "Tackle"))
         self.level_move1.setText(_translate("DiniDex", "1"))
 
+        self.description_widget.show()
+        self.abilities_widget.show()
+
     def setStyleSheetResources(self, Dinidex, Pokemon):
 
         self.sprite_pokemon.setStyleSheet("image: url(resources/sprites/{}.png);\n"
@@ -574,12 +570,19 @@ class Ui_DiniDex(object):
             
             self.pokemon_type2.setStyleSheet("image: url(resources/pokemon_type_icon/{}_type.png);\n"
 "background-color: transparent;".format(Pokemon.types[1]))
+            self.pokemon_type1.show()
+            self.pokemon_type2.show()
 
         else:
-            self.pokemon_type1.setGeometry(QtCore.QRect(60, 440, 115, 30))
+            self.pokemon_type1.setGeometry(QtCore.QRect(70, 440, 115, 30))
             self.pokemon_type1.setStyleSheet("image: url(resources/pokemon_type_icon/{}_type.png);\n"
 "background-color: transparent;".format(Pokemon.types[0]))
             self.pokemon_type2.clear()
+            print('type2 deveria ser invisivel')
+            self.background.show()
+            self.pokemon_type1.show()
+            self.pokemon_type2.setHidden(True)
+            #self.pokemon_type2.show()
 
     
         self.evo1_type1.setStyleSheet("image: url(resources/pokemon_type_icon/grass_type.png);\n" #MUDAR AQUI PARA UMA VARIAVEL DO TIPO DO POKEMON
@@ -607,6 +610,9 @@ class Ui_DiniDex(object):
         self.arrow_evo_2_3.setStyleSheet("image: url(resources/arrow/default_right_arrow.png);\n"
 "background-color: transparent;")
 
+        self.sprite_pokemon.show()
+
+
     def check_2_types(self, pokemon):
         if len(pokemon.types) > 1:
             return True
@@ -621,6 +627,7 @@ class Ui_DiniDex(object):
             self.label_spattack_bar.setGeometry(QtCore.QRect(140, 150, int(140*Pokemon.base_stats[3]/100), 6))
             self.label_spdefense_bar.setGeometry(QtCore.QRect(140, 190, int(140*Pokemon.base_stats[4]/100), 6))
             self.label_speed_bar.setGeometry(QtCore.QRect(140, 230, int(140*Pokemon.base_stats[5]/100), 6))
+            self.stats_widget.show()
 
             return
 
@@ -629,9 +636,7 @@ class Ui_DiniDex(object):
         pokemon_search = self.search_bar.text()
         print(pokemon_search)
         if self.first_run:
-            print('Vou dar o setup no pokemon na first run')
             self.setupPokemonUi(DiniDex)
-            print('Dei o setupPòkemon na first run')
             self.first_run = 0
         pokemon = self.call_pokemon(pokemon_search)
         print()
