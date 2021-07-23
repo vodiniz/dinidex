@@ -1,3 +1,4 @@
+from telnetlib import STATUS
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QApplication
 import pypokedex
@@ -24,14 +25,14 @@ class Ui_DiniDex(object):
 "background:transparent;")
         self.pokemon_logo.setObjectName("pokemon_logo")
         self.background = QtWidgets.QWidget(self.centralwidget)
-        self.background.setGeometry(QtCore.QRect(0, 0, 920, 860))
+        self.background.setGeometry(QtCore.QRect(0, 0, 1030, 860))
         self.background.setStyleSheet("background-color: rgb(206, 76, 62);\n"
 "\n"
 "")
         self.background.setObjectName("background")
         self.search_bar = QtWidgets.QLineEdit(self.background)
         self.search_bar.returnPressed.connect(self.onPressed)
-        self.search_bar.setGeometry(QtCore.QRect(260, 130, 650, 40))
+        self.search_bar.setGeometry(QtCore.QRect(260, 130, 760, 40))
         self.search_bar.setStyleSheet("color: rgb(68, 68, 68);\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 8px;")
@@ -51,7 +52,7 @@ class Ui_DiniDex(object):
         #CORRIGIR PARA APARECER ESCRITO E SUMIR QUANDO ESTIVER NO FOCO
 
     def setupPokemonUi(self, DiniDex):
-        DiniDex.resize(920, 860)
+        DiniDex.resize(1030, 860)
         #DiniDex.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.evolution_line_widget = QtWidgets.QWidget(self.background)
         self.evolution_line_widget.setGeometry(QtCore.QRect(260, 480, 650, 370))
@@ -162,7 +163,7 @@ class Ui_DiniDex(object):
         self.sprite_pokemon.setGeometry(QtCore.QRect(20, 170, 220, 220))
         self.sprite_pokemon.setObjectName("sprite_pokemon")
         self.stats_widget = QtWidgets.QWidget(self.background)
-        self.stats_widget.setGeometry(QtCore.QRect(500, 210, 410, 260))
+        self.stats_widget.setGeometry(QtCore.QRect(500, 210, 520, 260))
         self.stats_widget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius:8px;\n"
 "")
@@ -506,6 +507,8 @@ class Ui_DiniDex(object):
     def updatePokemon(self, DiniDex, Pokemon):
         self.retranslateFixedUi(DiniDex, Pokemon)
         self.setStyleSheetResources(DiniDex, Pokemon)
+        self.setStatsFontColor()
+        self.updateStatsColor(Pokemon.base_stats)
         self.updateStatsBar(DiniDex, Pokemon)
         self.showAll()
 
@@ -621,17 +624,65 @@ class Ui_DiniDex(object):
         else:
             return False
 
+    def setStatsFontColor(self):
+        self.label_hp.setStyleSheet("color:rgb(0,0,0);")
+        self.label_hp_stat.setStyleSheet("color:rgb(0,0,0);")
+        self.label_attack.setStyleSheet("color:rgb(0,0,0);")
+        self.label_attack_stat.setStyleSheet("color:rgb(0,0,0);")
+        self.label_defense.setStyleSheet("color:rgb(0,0,0);")
+        self.label_defense_stat.setStyleSheet("color:rgb(0,0,0);")
+        self.label_spattack.setStyleSheet("color:rgb(0,0,0);")
+        self.label_spattack_stat.setStyleSheet("color:rgb(0,0,0);")
+        self.label_spdefense.setStyleSheet("color:rgb(0,0,0);")
+        self.label_spdefense_stat.setStyleSheet("color:rgb(0,0,0);")
+        self.label_speed.setStyleSheet("color:rgb(0,0,0);")        
+        self.label_speed_stat.setStyleSheet("color:rgb(0,0,0);")
+        
+        return
+
+    def updateStatsColor(self, stats):
+        self.label_hp_bar.setStyleSheet(self.returnBackgroundRGB(stats[0]))
+        self.label_attack_bar.setStyleSheet(self.returnBackgroundRGB(stats[1]))
+        self.label_defense_bar.setStyleSheet(self.returnBackgroundRGB(stats[2]))
+        self.label_spattack_bar.setStyleSheet(self.returnBackgroundRGB(stats[3]))
+        self.label_spdefense_bar.setStyleSheet(self.returnBackgroundRGB(stats[4]))
+        self.label_speed_bar.setStyleSheet(self.returnBackgroundRGB(stats[5]))
+
+        self.stats_widget.show()
+
+        
+        
+        return 
+
+    def returnBackgroundRGB(self, stats):
+        rgb = 0
+        if stats >= 200:
+            rgb = "background-color:rgb(2, 255, 255);"
+
+        if stats < 200 and stats >= 150:
+            rgb = "background-color:rgb(2,255,{});".format(int((stats-150)*255/50))
+
+        if stats < 150 and stats >= 100:
+            rgb = "background-color:rgb({},255,0);".format(int((stats-100)*255/50))
+
+        if stats < 100 and stats >= 50:
+            rgb = "background-color:rgb(255,{},0);".format(int((stats-50)*255/50))
+
+        if stats <= 50:
+            rgb = "background-color:rgb(255, 0, 0);"
+
+        return rgb+"border-radius: 3px;"
             
     def updateStatsBar(self,DiniDex,Pokemon):
-            self.label_hp_bar.setGeometry(QtCore.QRect(140, 30, int(140*Pokemon.base_stats[0]/100), 6))
-            self.label_attack_bar.setGeometry(QtCore.QRect(140, 70, int(140*Pokemon.base_stats[1]/100), 6))
-            self.label_defense_bar.setGeometry(QtCore.QRect(140, 110, int(140*Pokemon.base_stats[2]/100), 6))
-            self.label_spattack_bar.setGeometry(QtCore.QRect(140, 150, int(140*Pokemon.base_stats[3]/100), 6))
-            self.label_spdefense_bar.setGeometry(QtCore.QRect(140, 190, int(140*Pokemon.base_stats[4]/100), 6))
-            self.label_speed_bar.setGeometry(QtCore.QRect(140, 230, int(140*Pokemon.base_stats[5]/100), 6))
-            self.stats_widget.show()
+        self.label_hp_bar.setGeometry(QtCore.QRect(140, 30, int(140*Pokemon.base_stats[0]/100), 6))
+        self.label_attack_bar.setGeometry(QtCore.QRect(140, 70, int(140*Pokemon.base_stats[1]/100), 6))
+        self.label_defense_bar.setGeometry(QtCore.QRect(140, 110, int(140*Pokemon.base_stats[2]/100), 6))
+        self.label_spattack_bar.setGeometry(QtCore.QRect(140, 150, int(140*Pokemon.base_stats[3]/100), 6))
+        self.label_spdefense_bar.setGeometry(QtCore.QRect(140, 190, int(140*Pokemon.base_stats[4]/100), 6))
+        self.label_speed_bar.setGeometry(QtCore.QRect(140, 230, int(140*Pokemon.base_stats[5]/100), 6))
+        self.stats_widget.show()
 
-            return
+        return
 
             
     def onPressed(self):

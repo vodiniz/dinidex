@@ -1,4 +1,5 @@
 import json
+from xxlimited import Null
 import requests
 import pypokedex
 
@@ -67,28 +68,31 @@ def evolution_chain_type(json):
 
 def evolution_tree(pokemon, species_json, evolution_json,):
     base_forms = check_base_forms(species_json)
+    evo_lenght = get_evo_line_lenght(evolution_json)
 
-    if base_forms == 3:
-        #forma meowth
-        print('■ -> ■ ')
-        print('■ -> ■ ')
-        print('■ -> ■ ')
+    if evo_lenght ==1:
+        print('■')
 
-    if base_forms == 2:
-        #conferir se é slowbro ou evoluçao normal
-        if check_branched_evolution(species_json, evolution_json):
-            print('    ■')
-            print('■ <')
-            print('    ■')
-            print('')
-            print('    ■')
-            print('■ <')
-            print('    ■')
-        
-    if base_forms == 1 :
-        evo_lenght = get_evo_line_lenght(evolution_json)
-        branched_evo, second_evo_branches, third_evo_branches = check_branched_evolution(species_json,evolution_json)
-        if evo_lenght == 2:
+    if evo_lenght == 2:
+        if base_forms == 3:
+            #forma meowth
+            print('■ -> ■ ')
+            print('■ -> ■ ')
+            print('■ -> ■ ')
+
+        if base_forms == 2:
+            #conferir se é slowbro ou evoluçao normal
+            if check_branched_evolution(species_json, evolution_json):
+                print('    ■')
+                print('■ <')
+                print('    ■')
+                print('')
+                print('    ■')
+                print('■ <')
+                print('    ■')
+            
+        if base_forms == 1 :
+            branched_evo, second_evo_branches, third_evo_branches = check_branched_evolution(species_json,evolution_json)
             if branched_evo:
                 if (second_evo_branches == 8):
                     #evee
@@ -108,9 +112,14 @@ def evolution_tree(pokemon, species_json, evolution_json,):
                     #CUBONE
                     print('    ■')
                     print('■ <')
-                    print('    ■')         
+                    print('    ■')          
 
+    if evo_lenght == 3:
+        if check_branched_evolution:
+            print('branched evolution')
 
+        else:
+            print('■ -> ■ -> ■') 
 
         
 def get_evolution(pokemon):
@@ -163,6 +172,15 @@ def get_evolution(pokemon):
 
 def check_base_forms(species_json):
     base_forms = 1
+    if species_json['evolves_from_species'] == None:
+        pass
+    else:
+        #print(species_json)
+        #print(species_json)
+        json_page = requests.get(species_json['evolves_from_species']['url'])
+        species_json = json.loads(json_page.text)
+
+
     for element in species_json['varieties']:
         if (element['is_default'] == True):
             pass
@@ -173,6 +191,7 @@ def check_base_forms(species_json):
                 base_forms = base_forms + 1
 
     return base_forms
+
 
 
 def get_evo_line_lenght(evolution_json):
@@ -198,22 +217,23 @@ def check_branched_evolution(species_json, evolution_json):
     second_evo_branches = 0
     third_evo_branches = 0
     branched_evolution = False
+    alternate_form_list = None
     try:
         second_evolution = evolution_json['chain']['evolves_to']
         evolution_list = []
         for evolution in second_evolution:
             pokemon_name = evolution['species']['name']
             evolution_list.append(pokemon_name)
-            try:
-                pokemon_test = call_pokemon(pokemon_name)
-                alternate_form_list = get_alternate_forms(get_species_json(pokemon_test))
-            except Exception as Ex:
-                print(Ex)
-
-            if alternate_form_list == None:
-                pass
-            else:
-                for alternate_form in alternate_form_list:
+            pokemon_test = call_pokemon(pokemon_name)
+            alternate_form_list = get_alternate_forms(get_species_json(pokemon_test))
+        
+        if alternate_form_list == None:
+            pass
+        else:
+            for alternate_form in alternate_form_list:
+                if len(alternate_form_list) >= check_base_forms(pokemon_test):
+                    print('nao é branched!')
+                else:
                     evolution_list.append(alternate_form)
             
         if len(evolution_list)>1:
@@ -247,7 +267,6 @@ def check_branched_evolution(species_json, evolution_json):
 
 def get_alternate_forms(species_json):
     alternate_form_list = []
-    print(species_json['varieties'])
     for element in species_json['varieties']:
         if (element['is_default'] == True):
             pass
@@ -279,7 +298,8 @@ if __name__ == "__main__":
     # get_evolution_json(call_pokemon(52))
     # get_evolution_json(call_pokemon(79))
     # get_evolution_json(call_pokemon(133))
-    # get_evolution_json(call_pokemon(2))
+    get_evolution_json(call_pokemon(122))
+    get_evolution_json(call_pokemon(862))
     get_evolution_json(call_pokemon(104))
     #next_evo = get_evolution(call_pokemon(2))
     #check_regional_form(call_pokemon(19))
