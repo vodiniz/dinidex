@@ -446,9 +446,9 @@ class Ui_DiniDex(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.moves_title.setFont(font)
-        self.moves_title.setStyleSheet("background-color: transparent);\n"
+        self.moves_title.setStyleSheet("background-color: transparent;\n"
 "color: rgb(0, 0, 0);\n"
-"border_radius:3px")
+"border-radius:6px")
         self.moves_title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.moves_title.setObjectName("moves_title")
         self.move1 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
@@ -515,6 +515,7 @@ class Ui_DiniDex(object):
         self.evo_detail_1_2.setText(_translate("DiniDex", "Level 16")) #ARRUMAR API EVOLUTION
         self.evo_detail_2_3.setText(_translate("DiniDex", "Level 32")) #ARRUMAR API EVOLUTION
         self.label_hp.setText(_translate("DiniDex", "Hp"))
+        self.label_hp.setText(_translate("DiniDex", "Hp"))
         self.label_attack.setText(_translate("DiniDex", "Attack"))
         self.label_defense.setText(_translate("DiniDex", "Defense"))
         self.label_spattack.setText(_translate("DiniDex", "Sp. Attack"))
@@ -529,6 +530,8 @@ class Ui_DiniDex(object):
         self.abilities_title.setText(_translate("DiniDex", "Abilities"))
         self.nability_title.setText(_translate("DiniDex", "Normal Abilities"))
         self.hability_title.setText(_translate("DiniDex", "Hidden Ability"))
+        self.stats_widget.show()
+        
 
         count = 0
         for ability in Pokemon.abilities:
@@ -578,7 +581,6 @@ class Ui_DiniDex(object):
             self.pokemon_type1.setStyleSheet("image: url(resources/pokemon_type_icon/{}_type.png);\n"
 "background-color: transparent;".format(Pokemon.types[0]))
             self.pokemon_type2.clear()
-            print('type2 deveria ser invisivel')
             self.background.show()
             self.pokemon_type1.show()
             self.pokemon_type2.setHidden(True)
@@ -634,21 +636,15 @@ class Ui_DiniDex(object):
             
     def onPressed(self):
         pokemon_search = self.search_bar.text()
-        print(pokemon_search)
         if self.first_run:
             self.setupPokemonUi(DiniDex)
             self.first_run = 0
         pokemon = self.call_pokemon(pokemon_search)
-        print()
         self.updatePokemon(DiniDex, pokemon)
 
-        
-        
     def call_pokemon(self, input):
         try:
-            print('testando o input',input)
             input = int(input)
-            
             pokemon = pypokedex.get(dex=input)
         except:
             pokemon = pypokedex.get(name=input)
