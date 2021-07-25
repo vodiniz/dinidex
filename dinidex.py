@@ -7,6 +7,8 @@ import requests
 import random
 import time
 
+
+##BOTAO PARA MOSTRAR ALOLAN FORM E GALARIAN FORM, TALVEZ MEGA IA SER LEGAL FICAR DE OLHO
 class Ui_DiniDex(object):
     first_run = 1
     #DiniDex = ??? Colocar no construtor

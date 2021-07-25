@@ -1,5 +1,4 @@
 import json
-from xxlimited import Null
 import requests
 import pypokedex
 
@@ -175,8 +174,7 @@ def check_base_forms(species_json):
     if species_json['evolves_from_species'] == None:
         pass
     else:
-        #print(species_json)
-        #print(species_json)
+
         json_page = requests.get(species_json['evolves_from_species']['url'])
         species_json = json.loads(json_page.text)
 
@@ -218,20 +216,22 @@ def check_branched_evolution(species_json, evolution_json):
     third_evo_branches = 0
     branched_evolution = False
     alternate_form_list = None
+    pokemon_2_evolution = None
     try:
         second_evolution = evolution_json['chain']['evolves_to']
         evolution_list = []
         for evolution in second_evolution:
             pokemon_name = evolution['species']['name']
             evolution_list.append(pokemon_name)
-            pokemon_test = call_pokemon(pokemon_name)
-            alternate_form_list = get_alternate_forms(get_species_json(pokemon_test))
+            pokemon_2_evolution = call_pokemon(pokemon_name)
+            pokemon_2_evolution_species_json = pokemon_2_evolution_species_json
+            alternate_form_list = get_alternate_forms(pokemon_2_evolution_species_json)
         
         if alternate_form_list == None:
             pass
         else:
             for alternate_form in alternate_form_list:
-                if len(alternate_form_list) >= check_base_forms(pokemon_test):
+                if len(alternate_form_list) >= check_base_forms(pokemon_2_evolution):
                     print('nao é branched!')
                 else:
                     evolution_list.append(alternate_form)
