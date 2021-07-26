@@ -32,33 +32,41 @@ def get_evolution_json(species_json):
 
 def get_simple_evolution_list(evolution_json):
 
-    first_evolution_pokemon = []
-    first_evolution_pokemon.append(call_pokemon(evolution_json['chain']['species']['name']))
+    first_evolution_pokemon =call_pokemon(evolution_json['chain']['species']['name'])
 
-    second_evolution_pokemon = get_evolution(first_evolution_pokemon[0], evolution_json)
+    second_evolution_pokemon = get_evolution(first_evolution_pokemon, evolution_json)
     third_evolution_pokemon = get_evolution(second_evolution_pokemon, evolution_json)
 
+    print(third_evolution_pokemon)
     
     if second_evolution_pokemon == None:
-        print('{} '.format(first_evolution_pokemon[0].name))
+        print('{} '.format(first_evolution_pokemon.name))
         return first_evolution_pokemon
 
     else:
         pass
+
     if third_evolution_pokemon == None:
         print(first_evolution_pokemon.name, '->', end = '')
         for evolution in second_evolution_pokemon:
-            print (evolution.name, end ='/')
-        return first_evolution_pokemon + second_evolution_pokemon
-    else:
-        print(first_evolution_pokemon[0].name, '->', end = '/')
-        for evolution in second_evolution_pokemon:
-            print (evolution.name, end ='/')
-        print('->')
-        for evolution in third_evolution_pokemon:
-            print (evolution.name, end ='/')
+            if second_evolution_pokemon.index(evolution) != 0:
+                print('/', end = '')
+            print(evolution.name)
+        
+        second_evolution_pokemon.insert(0, first_evolution_pokemon)
+        return second_evolution_pokemon
 
-        return first_evolution_pokemon + second_evolution_pokemon + third_evolution_pokemon
+    else:
+        print(first_evolution_pokemon.name, '->', end = '')
+        for evolution in second_evolution_pokemon:
+            if second_evolution_pokemon.index(evolution) != 0:
+                print('/', end = '')
+            print(evolution.name, end ='')
+        print(first_evolution_pokemon.name, '->', end = '')
+        for evolution in third_evolution_pokemon:
+            print(evolution.name, end ='')
+        second_evolution_pokemon.insert(0, first_evolution_pokemon)
+        return second_evolution_pokemon + third_evolution_pokemon
 
 
    
@@ -244,12 +252,13 @@ def print_evo_tree(pokemon, species_json, evolution_json):
 
 
 def get_evolution(pokemon, evolution_json):
-    #pode ter problemas com branched evolution
+    #PROBLEMAS COM 3 EVOLUÇAO FAZER O CHECK
     return_list = []
+    third_evo_check = False
     try: 
         if pokemon.name == evolution_json['chain']['species']['name']:
-            for pokemon in evolution_json['chain']['evolves_to']:
-                return_list.append(call_pokemon(pokemon['species']['name']))
+            for pokemon1 in evolution_json['chain']['evolves_to']:
+                return_list.append(call_pokemon(pokemon1['species']['name']))
     except:
         return None
     
@@ -263,14 +272,19 @@ def get_evolution(pokemon, evolution_json):
 
     try:
         for pokemon1 in evolution_json['chain']['evolves_to']:
-            for pokemon2 in pokemon['evolves_to']:
-                if pokemon.name == pokemon2['species']['name']:
-                    return None
-
+            for pokemon2 in pokemon1['evolves_to']:
+                print(pokemon2)
+                if pokemon.name == pokemon1['species']['name']:
+                    return None              
+                else:
+                    return_list.append(call_pokemon(pokemon2['species']['name']))    
     except:
         pass
-    
-    return return_list
+
+    if len(return_list) == 0:
+        return None
+    else:
+        return return_list
 
 
 def test_return_evolution(pokemon):
