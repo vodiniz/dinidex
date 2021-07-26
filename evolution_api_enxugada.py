@@ -32,13 +32,15 @@ def get_evolution_json(species_json):
 
 def get_simple_evolution_list(evolution_json):
 
-    first_evolution_pokemon =call_pokemon(evolution_json['chain']['species']['name'])
+    first_evolution_pokemon = call_pokemon(evolution_json['chain']['species']['name'])
 
     second_evolution_pokemon = get_evolution(first_evolution_pokemon, evolution_json)
-    third_evolution_pokemon = get_evolution(second_evolution_pokemon, evolution_json)
+    third_evolution_pokemon = []
 
-    print(third_evolution_pokemon)
+    for evolution in second_evolution_pokemon:
+        third_evolution_pokemon = third_evolution_pokemon + get_evolution(evolution, evolution_json)
     
+
     if second_evolution_pokemon == None:
         print('{} '.format(first_evolution_pokemon.name))
         return first_evolution_pokemon
@@ -57,14 +59,17 @@ def get_simple_evolution_list(evolution_json):
         return second_evolution_pokemon
 
     else:
-        print(first_evolution_pokemon.name, '->', end = '')
+        print(first_evolution_pokemon.name, '-> ', end = '')
         for evolution in second_evolution_pokemon:
             if second_evolution_pokemon.index(evolution) != 0:
-                print('/', end = '')
+                print(' / ', end = '')
             print(evolution.name, end ='')
-        print(first_evolution_pokemon.name, '->', end = '')
+        print(' -> ', end = '')
         for evolution in third_evolution_pokemon:
+            if third_evolution_pokemon.index(evolution) != 0:
+                print(' / ', end = '')
             print(evolution.name, end ='')
+        print('')
         second_evolution_pokemon.insert(0, first_evolution_pokemon)
         return second_evolution_pokemon + third_evolution_pokemon
 
@@ -269,28 +274,13 @@ def get_evolution(pokemon, evolution_json):
                     return_list.append(call_pokemon(pokemon2['species']['name']))
     except:
         pass
-
-    try:
-        for pokemon1 in evolution_json['chain']['evolves_to']:
-            for pokemon2 in pokemon1['evolves_to']:
-                print(pokemon2)
-                if pokemon.name == pokemon1['species']['name']:
-                    return None              
-                else:
-                    return_list.append(call_pokemon(pokemon2['species']['name']))    
-    except:
-        pass
-
-    if len(return_list) == 0:
-        return None
-    else:
-        return return_list
+    return return_list
 
 
 def test_return_evolution(pokemon):
     species_json, species_url = get_species_json(pokemon)
     evolution_json, evolution_url = get_evolution_json(species_json)
-    return_pokemon = get_evolution(pokemon, evolution_json)
+    return_pokemon = 1 #get_evolution(pokemon, evolution_json)
     get_simple_evolution_list(evolution_json)
     return return_pokemon
 
